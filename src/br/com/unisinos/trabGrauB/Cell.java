@@ -3,6 +3,10 @@ package br.com.unisinos.trabGrauB;
 public abstract class Cell {
 	private int id;
 	
+	public Cell(int id) {
+		this.id = id;
+	}
+	
 	public int getId() {
 		return id;
 	}

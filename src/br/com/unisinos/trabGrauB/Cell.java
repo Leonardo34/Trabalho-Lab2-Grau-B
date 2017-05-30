@@ -16,4 +16,13 @@ public abstract class Cell {
 	}
 	
 	public abstract double eval();
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
+		Cell otherCell = (Cell)obj;
+		return this.id == otherCell.id;
+	}
 }

@@ -1,17 +1,17 @@
 package br.com.unisinos.trabGrauB;
 
 public abstract class Cell {
-	private int id;
+	private String id;
 	
-	public Cell(int id) {
+	public Cell(String id) {
 		this.id = id;
 	}
 	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 	
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	

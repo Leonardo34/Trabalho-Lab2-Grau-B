@@ -5,11 +5,11 @@ public class TestClass {
 		DoublyLinkedList<Cell> planilha = new DoublyLinkedList<>();
 		Teclado tecladoReader = new Teclado();
 		int opcao;
-		
+
 		do {
 			imprimirMenu();
 			opcao = tecladoReader.leInt();
-			
+
 			if (opcao == 1) {
 				String id = tecladoReader.leString("Digite o id da nova celula: ");
 				String valor = tecladoReader.leString("Digite o valor da celula");
@@ -18,11 +18,34 @@ public class TestClass {
 				} else {
 					planilha.insertLast(new ValueCell(Double.parseDouble(valor), id));
 				}
+			} else if (opcao == 2) {
+				String id = tecladoReader.leString("Digite o id da celula a avaliar");
+				int index = planilha.search(new ValueCell(0, id));
+				if (index >= 0) {
+					System.out.println("Valor da celula: " + planilha.get(index).eval());
+				} else {
+					System.out.println("A planilha não contem uma célula com este id");
+				}
+			} else if (opcao == 3) {
+				for (int i = 0; i < planilha.numElements(); i++) {
+					Cell celula = planilha.get(i);
+					System.out.println(celula.getId() + " " + celula.eval());
+				}
+			} else if (opcao == 4) {
+				for (int i = 0; i < planilha.numElements(); i++) {
+					Cell celula = planilha.get(i);
+					if (celula instanceof ValueCell) {
+						System.out.println(celula.getId() + " " + 
+								((ValueCell)celula).getValor());
+					} else {
+						System.out.println(celula.getId() + " " + 
+								((FormulaCell)celula).getFormula());
+					}
+				}
 			}
-			
 		} while (opcao != 9);
 	}
-	
+
 	public static void imprimirMenu() {
 		System.out.println("Digite a opcao:");
 		System.out.println("1 - Incluir célula");

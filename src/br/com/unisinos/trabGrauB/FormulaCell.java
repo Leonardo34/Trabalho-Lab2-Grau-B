@@ -19,6 +19,27 @@ public class FormulaCell extends Cell {
 	}
 	
 	public double eval() {
-		return 0;
+		Stack<Double> stack = new LinkedStack<>();
+		String[] formulaSplit = formula.replaceAll("=", "").split(" ");
+		for (String each : formulaSplit) {
+			if (isNumber(each)) {
+				stack.push(Double.parseDouble(each));
+			} else if (isOperation(each)) {
+				Operation oper = new Operation(each, stack.pop(), stack.pop());
+				stack.push(oper.eval());
+			} else {
+				int index = planilha.search(new ValueCell(0, each));
+				stack.push(planilha.get(index).eval());
+			}
+		}
+		return stack.pop();
+	}
+	
+	private boolean isNumber(String expr) {
+		return expr.matches("^-?\\d+(\\.\\d+)?$");
+	}
+	
+	private boolean isOperation(String expr) {
+		return expr.matches("[-+*/^]");
 	}
 }

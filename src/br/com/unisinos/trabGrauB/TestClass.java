@@ -1,8 +1,10 @@
 package br.com.unisinos.trabGrauB;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class TestClass {
@@ -56,6 +58,28 @@ public class TestClass {
 						os.writeObject(planilha.get(i));
 					}
 					os.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else if (opcao == 6) {
+				try {
+					File file = new File(tecladoReader.leString("Digite o diretorio do arquivo:"));
+					FileInputStream fos = new FileInputStream(file);
+					ObjectInputStream os = new ObjectInputStream(fos);
+					while (true) {
+						try {
+							Cell cell = (Cell)os.readObject();
+							System.out.println(cell.getId());
+							if (cell instanceof FormulaCell) {
+								((FormulaCell)cell).setPlanilha(planilha);
+							}
+							planilha.insertLast(cell);
+						} catch (IOException e) {
+							break;
+						} catch (ClassNotFoundException e) {
+							e.printStackTrace();
+						}
+					}
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

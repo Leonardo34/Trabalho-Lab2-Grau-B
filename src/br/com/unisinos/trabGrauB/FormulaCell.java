@@ -6,7 +6,6 @@ public class FormulaCell extends Cell implements Serializable {
 	private String formula;
 	private List<Cell> planilha;
 	
-	
 	public FormulaCell(String formula, List<Cell> planilha, String id) {
 		super(id);
 		this.formula = formula;
@@ -19,6 +18,14 @@ public class FormulaCell extends Cell implements Serializable {
 	
 	public void setFormula(String formula) {
 		this.formula = formula;
+	}
+	
+	public List<Cell> getPlanilha() {
+		return planilha;
+	}
+	
+	public void setPlanilha(List<Cell> planilha) {
+		this.planilha = planilha;
 	}
 	
 	public double eval() {

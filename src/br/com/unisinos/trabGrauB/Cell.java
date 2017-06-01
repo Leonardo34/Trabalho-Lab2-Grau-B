@@ -1,6 +1,8 @@
 package br.com.unisinos.trabGrauB;
 
-public abstract class Cell {
+import java.io.Serializable;
+
+public abstract class Cell implements Serializable {
 	private String id;
 	
 	public Cell(String id) {

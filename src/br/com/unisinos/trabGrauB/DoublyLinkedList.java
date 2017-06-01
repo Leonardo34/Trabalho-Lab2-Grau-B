@@ -1,6 +1,8 @@
 package br.com.unisinos.trabGrauB;
 
-public class DoublyLinkedList<E> implements List<E> {
+import java.io.Serializable;
+
+public class DoublyLinkedList<E> implements List<E>, Serializable {
 
 	protected DNode<E> head;
 	protected DNode<E> tail;

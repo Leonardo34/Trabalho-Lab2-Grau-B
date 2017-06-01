@@ -1,5 +1,10 @@
 package br.com.unisinos.trabGrauB;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
 public class TestClass {
 	public static void main(String[] args) {
 		DoublyLinkedList<Cell> planilha = new DoublyLinkedList<>();
@@ -36,11 +41,23 @@ public class TestClass {
 					Cell celula = planilha.get(i);
 					if (celula instanceof ValueCell) {
 						System.out.println(celula.getId() + " " + 
-								((ValueCell)celula).getValor());
+								((ValueCell) celula).getValor());
 					} else {
 						System.out.println(celula.getId() + " " + 
-								((FormulaCell)celula).getFormula());
+								((FormulaCell) celula).getFormula());
 					}
+				}
+			} else if (opcao == 5) {
+				try {
+					File file = new File(tecladoReader.leString("Digite o diretorio do arquivo: "));
+					FileOutputStream fos = new FileOutputStream(file);
+					ObjectOutputStream os = new ObjectOutputStream(fos);
+					for (int i = 0; i < planilha.numElements(); i++) {
+						os.writeObject(planilha.get(i));
+					}
+					os.close();
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
 			}
 		} while (opcao != 9);

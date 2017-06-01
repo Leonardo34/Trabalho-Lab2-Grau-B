@@ -1,6 +1,8 @@
 package br.com.unisinos.trabGrauB;
 
-public class ValueCell extends Cell {
+import java.io.Serializable;
+
+public class ValueCell extends Cell implements Serializable {
 	private double valor;
 	
 	public ValueCell(double valor, String id) {

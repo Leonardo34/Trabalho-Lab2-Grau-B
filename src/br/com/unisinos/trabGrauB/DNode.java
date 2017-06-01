@@ -1,5 +1,7 @@
 package br.com.unisinos.trabGrauB;
 
+import java.io.Serializable;
+
 public class DNode<E> {
 
 	protected E element;

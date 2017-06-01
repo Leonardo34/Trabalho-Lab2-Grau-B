@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class FormulaCell extends Cell implements Serializable {
 	private String formula;
-	private List<Cell> planilha;
+	private transient List<Cell> planilha;
 	
 	public FormulaCell(String formula, List<Cell> planilha, String id) {
 		super(id);

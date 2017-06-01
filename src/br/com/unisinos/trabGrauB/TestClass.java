@@ -16,73 +16,9 @@ public class TestClass {
 		do {
 			imprimirMenu();
 			opcao = tecladoReader.leInt();
-
-			if (opcao == 1) {
-				String id = tecladoReader.leString("Digite o id da nova celula: ");
-				String valor = tecladoReader.leString("Digite o valor da celula");
-				if (valor.charAt(0) == '=') {
-					planilha.insertLast(new FormulaCell(valor, planilha, id));
-				} else {
-					planilha.insertLast(new ValueCell(Double.parseDouble(valor), id));
-				}
-			} else if (opcao == 2) {
-				String id = tecladoReader.leString("Digite o id da celula a avaliar");
-				int index = planilha.search(new ValueCell(0, id));
-				if (index >= 0) {
-					System.out.println("Valor da celula: " + planilha.get(index).eval());
-				} else {
-					System.out.println("A planilha não contem uma célula com este id");
-				}
-			} else if (opcao == 3) {
-				for (int i = 0; i < planilha.numElements(); i++) {
-					Cell celula = planilha.get(i);
-					System.out.println(celula.getId() + " " + celula.eval());
-				}
-			} else if (opcao == 4) {
-				for (int i = 0; i < planilha.numElements(); i++) {
-					Cell celula = planilha.get(i);
-					if (celula instanceof ValueCell) {
-						System.out.println(celula.getId() + " " + 
-								((ValueCell) celula).getValor());
-					} else {
-						System.out.println(celula.getId() + " " + 
-								((FormulaCell) celula).getFormula());
-					}
-				}
-			} else if (opcao == 5) {
-				try {
-					File file = new File(tecladoReader.leString("Digite o diretorio do arquivo: "));
-					FileOutputStream fos = new FileOutputStream(file);
-					ObjectOutputStream os = new ObjectOutputStream(fos);
-					for (int i = 0; i < planilha.numElements(); i++) {
-						os.writeObject(planilha.get(i));
-					}
-					os.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			} else if (opcao == 6) {
-				try {
-					File file = new File(tecladoReader.leString("Digite o diretorio do arquivo:"));
-					FileInputStream fos = new FileInputStream(file);
-					ObjectInputStream os = new ObjectInputStream(fos);
-					while (true) {
-						try {
-							Cell cell = (Cell)os.readObject();
-							System.out.println(cell.getId());
-							if (cell instanceof FormulaCell) {
-								((FormulaCell)cell).setPlanilha(planilha);
-							}
-							planilha.insertLast(cell);
-						} catch (IOException e) {
-							break;
-						} catch (ClassNotFoundException e) {
-							e.printStackTrace();
-						}
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+			Comando comando = ComandoFactory.criarComando(opcao, planilha);
+			if (opcao != 9) {
+				comando.executar();
 			}
 		} while (opcao != 9);
 	}
